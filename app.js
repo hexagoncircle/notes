@@ -5,21 +5,38 @@ const _ = require('lodash');
 const yargs = require('yargs');
 
 const notes = require('./notes.js');
-const json = require('./playground/json.js');
-
 
 const argv = yargs.argv;
 var command = argv._[0];
-console.log('Yargs', argv);
+// console.log('Yargs', argv);
 
 if (command === 'add') {
-  notes.addNote(argv.title, argv.body);
+  var note = notes.addNote(argv.title, argv.body);
+
+  if (note) {
+    console.log('Note created');
+    notes.logNote(note);
+  } else {
+    console.log('Note title already in use');
+  }
 } else if (command === 'list') {
-  notes.getAll();
+  var allNotes = notes.getAll();
+  console.log(`Printing ${allNotes.length} ${allNotes.length > 1 ? `notes` : `note`}`);
+  allNotes.forEach((note) => notes.logNote(note));
 } else if (command === 'read') {
-  notes.readNote(argv.title);
+  var note = notes.getNote(argv.title);
+
+  if (note) {
+    console.log('Note found');
+    notes.logNote(note);
+  } else {
+    console.log('Note not found');
+  }
 } else if (command === 'remove') {
-  notes.removeNote(argv.title);
+  var note = notes.removeNote(argv.title);
+  var message = note ? 'Note was removed' : 'Note not found';
+
+  console.log(message);
 } else {
   console.log('Unrecognized command');
 }
