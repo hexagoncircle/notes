@@ -40,9 +40,7 @@ var getNote = (title) => {
   return filteredNotes[0];
 };
 
-var getAll = () => {
-  return fetchNotes();
-};
+var getAll = () => fetchNotes();
 
 var logNote = (note) => {
   debugger;
