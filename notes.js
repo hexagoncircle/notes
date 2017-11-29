@@ -1,17 +1,16 @@
 const fs = require('fs');
+const data = 'data.json';
 
 var fetchNotes = () => {
   try {
-    var notesStr = fs.readFileSync('notes-data.json');
+    var notesStr = fs.readFileSync(data);
     return JSON.parse(notesStr);
   } catch (err) {
     return [];
   }
 }
 
-var saveNotes = (notes) => {
-  fs.writeFileSync('notes-data.json', JSON.stringify(notes));  
-};
+var saveNotes = (notes) => fs.writeFileSync(data, JSON.stringify(notes));
 
 var addNote = (title, body) => {
   var notes = fetchNotes();
@@ -43,7 +42,6 @@ var getNote = (title) => {
 var getAll = () => fetchNotes();
 
 var logNote = (note) => {
-  debugger;
   console.log('---');
   console.log(`Title: ${note.title}`);
   console.log(`Body: ${note.body}`);
