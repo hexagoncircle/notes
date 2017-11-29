@@ -1,4 +1,4 @@
-# notes
+# Notes
 A simple Node.js note application
 
 1. Run `npm install` to download all the app node module dependencies.
